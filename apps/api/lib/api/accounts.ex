@@ -6,7 +6,6 @@ defmodule Api.Accounts do
 
   import Ecto.Query, warn: false
   alias Api.Repo
-  alias Ecto.Multi
 
   alias Api.Accounts.ApiToken
 

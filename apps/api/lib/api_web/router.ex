@@ -3,21 +3,23 @@ defmodule ApiWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug, origin: "*"
   end
 
   pipeline :auth_token do
     plug ApiWeb.Plugs.GetAuthToken
   end
 
-  scope "/api", ApiWeb do
-    pipe_through :api
-  end
+  # scope "/api", ApiWeb do
+  #   pipe_through :api
+  # end
 
   scope "/", ApiWeb do
     pipe_through([:api, :auth_token])
 
     post "/calcular-intereses", ProxyController, :calculate_compound_interest
-    get "/jokes/:name", ProxyController, :get_joker_data  # falta la llave api token
+    get "/jokes/:name", ProxyController, :get_joker_data
+    get "/weather/:city_name", ProxyController, :get_wheather
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

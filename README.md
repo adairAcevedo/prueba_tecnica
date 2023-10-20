@@ -23,7 +23,36 @@ post http://localhost:4000/calcular-intereses
 
 get http://localhost:4000/jokes/random
 
+get http://localhost:4000/weather/cancun
 
 header required  X-API-TOKEN
 
 limit request 20 per api-token
+
+
+Examples
+
+Interest Compoust
+curl --request POST \
+  --url http://localhost:4000/calcular-intereses \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/8.3.0' \
+  --header 'X-API-TOKEN: kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy' \
+  --data '{
+  "principal": 1000,
+  "tasa_anual": 0.05,
+  "periodos": 1
+}'
+
+Jokes
+curl --request GET \
+  --url http://localhost:4000/jokes/random \
+  --header 'User-Agent: insomnia/8.3.0' \
+  --header 'x-api-token: kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy'
+
+
+Weather
+curl --request GET \
+  --url http://localhost:4000/weather/cancun \
+  --header 'User-Agent: insomnia/8.3.0' \
+  --header 'x-api-token: kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy'

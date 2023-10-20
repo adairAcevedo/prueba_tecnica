@@ -1,20 +1,30 @@
 defmodule Api.ProxyCore do
-  @base_url "https://api.chucknorris.io/jokes/"
+  @joker_url "https://api.chucknorris.io/jokes/"
+  @weather_url "https://api.openweathermap.org/data/2.5/weather"
+
   def get_joker_resp(name) when is_binary(name) do
-    name
-    |> poison_get
+    poison_get("#{@joker_url}#{name}")
   end
 
   def get_joker_resp(_), do: %{error: "valor vacio"}
 
-  defp poison_get(name) do
-    case HTTPoison.get "#{@base_url}#{name}" do
+  def get_weather(city_name) do
+    poison_get("#{@weather_url}?q=#{city_name}&appid=#{System.get_env("WEATHER_API_TOKEN", "b5e4490caa2999591fda348c01569769")}&units=metric&lang=es")
+  end
+
+  defp poison_get(url) do
+    case HTTPoison.get url do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        IO.inspect body
         %{ok: body}
+      {:ok, %HTTPoison.Response{status_code: 401, body: _body}} ->
+        %{ok: %{error: "Api key invalida"} |> Jason.encode! }
       {:ok, %HTTPoison.Response{status_code: 404}} ->
-        %{error: "valor no encontrado"}
+        %{error: "Valor no encontrado"}
       {:error, %HTTPoison.Error{reason: reason}} ->
         %{error: reason}
+      _ -> %{error: "Error Interno"}
     end
   end
+
 end

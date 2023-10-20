@@ -3,7 +3,7 @@ defmodule ApiWeb.Plugs.GetAuthToken do
 
   def call(conn, _opts) do
     case get_token(conn) do
-      {:ok, current_token} ->
+      {:ok, _current_token} ->
         conn
       {:error, error} ->
         conn
@@ -17,7 +17,7 @@ defmodule ApiWeb.Plugs.GetAuthToken do
     conn.req_headers
       |> Enum.filter(fn({name, _}) -> name == "x-api-token" end)
       |> List.first
-      |>  case  do
+      |>  case do
             nil -> {:error, %{error: "El token no esta establecido en los headers"}}
             {_, token} -> valid_token(token)
           end

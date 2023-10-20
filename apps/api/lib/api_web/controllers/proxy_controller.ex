@@ -41,4 +41,25 @@ defmodule ApiWeb.ProxyController do
       |> render("error.json", error: %{error: "Asegurese de mandar los valores necesarios como el principal, anula_rate y periods y con su formato correcto"})
   end
 
+
+  def get_wheather(conn, %{"city_name" => city_name}) when is_binary(city_name) do
+    Api.ProxyCore.get_weather(city_name)
+      |> case do
+        %{ok: response } ->
+          conn
+          |> put_view(json: ApiWeb.ProxyView)
+          |> render("wheather.json", response: response |>  Jason.decode!())
+        %{error: error} ->
+          conn
+          |> put_view(json: ApiWeb.ProxyView)
+          |> render("error.json", error: %{error: error})
+      end
+  end
+
+  def get_wheather(conn, _args) do
+    conn
+      |> put_view(json: ApiWeb.ProxyView)
+      |> render("error.json", error: %{error: "Asegurese de mandar el nombre de la ciudad"})
+  end
+
 end
