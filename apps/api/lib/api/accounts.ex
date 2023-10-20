@@ -225,9 +225,6 @@ defmodule Api.Accounts do
 
   def update_api_token_with_history_token(api_token,_current_token_count) do
     Api.Accounts.create_history_api_token(%{api_token_id: api_token.id, time_request: Timex.now })
-    # Multi.new()
-    #   |> Multi.update(:api_token, Api.Accounts.update_api_token(api_token, %{last_hour_count: current_token_count + 1}))
-    #   |> Multi.insert(:history_token, Api.Accounts.create_history_api_token(%{api_token_id: api_token.id, time_request: Timex.now }))
-    #   |> Repo.transaction()
+
   end
 end
