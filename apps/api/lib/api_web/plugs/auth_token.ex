@@ -4,7 +4,6 @@ defmodule ApiWeb.Plugs.GetAuthToken do
   def call(conn, _opts) do
     case get_token(conn) do
       {:ok, current_token} ->
-        IO.inspect(current_token, label: "este es token actual")
         conn
       {:error, error} ->
         conn
@@ -12,7 +11,6 @@ defmodule ApiWeb.Plugs.GetAuthToken do
         |> Phoenix.Controller.render("error.json", error: %{error: error})
         |> Plug.Conn.halt()
     end
-
   end
 
   def get_token(conn) do
@@ -21,19 +19,26 @@ defmodule ApiWeb.Plugs.GetAuthToken do
       |> List.first
       |>  case  do
             nil -> {:error, %{error: "El token no esta establecido en los headers"}}
-            {_, token} -> {:ok, token}
+            {_, token} -> valid_token(token)
           end
   end
 
-  def valid_token() do
-
+  def valid_token(token) do
+    case Api.Accounts.get_api_token_by_token(token) do
+      {:ok, api_token} ->
+        verify_limit_token(api_token)
+      _ ->
+        {:error, %{error: "Token invalido"}}
+    end
   end
 
 
-  def limit_token() do # falta limitar el token y que este sea valido ya sea con un cahce o con una db
-    # crear cache
-    # registrar todas las peticiones con fecha utc
-    # hacer un count de las peticiones cada vez que se realiza una y almacenarlas en una key
-    #
+  def verify_limit_token(api_token) do
+    Api.Accounts.last_hour_token_count(api_token)
+    |> case do
+      nil -> {:error, %{error: "Ocurrio un error al validar tu token"}}
+      false -> {:error,  %{error: "Demasiadas solicitudes. Por favor, espere y vuelva a intentarlo más tarde."}}
+      token_count -> {:ok, Api.Accounts.update_api_token_with_history_token(api_token, token_count)}
+    end
   end
 end

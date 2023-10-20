@@ -20,10 +20,11 @@ defmodule Api.MixProject do
   # Configuration for the OTP application.
   #
   # Type `mix help compile.app` for more information.
+  #  Application.ensure_all_started(:timex)
   def application do
     [
       mod: {Api.Application, []},
-      extra_applications: [:logger, :runtime_tools, :httpoison]
+      extra_applications: [:logger, :runtime_tools, :timex]
     ]
   end
 
@@ -37,8 +38,10 @@ defmodule Api.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7.9"},
+      {:phoenix_ecto, "~> 4.4"},
+      {:ecto_sql, "~> 3.10"},
+      {:postgrex, ">= 0.0.0"},
       {:phoenix_live_dashboard, "~> 0.8.2"},
-      {:phoenix_html, "~> 3.3"},
       {:swoosh, "~> 1.3"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 0.6"},
@@ -50,8 +53,7 @@ defmodule Api.MixProject do
       {:httpoison, "~> 2.1"},
       {:absinthe, "~> 1.7"},
       {:absinthe_plug, "~> 1.5"},
-      {:plug_cowboy, "~> 2.6"},
-      {:plug, "~> 1.15"}
+      {:timex, "~> 3.7"}
     ]
   end
 
@@ -63,7 +65,10 @@ defmodule Api.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get"]
+      setup: ["deps.get", "ecto.setup"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
 end

@@ -7,7 +7,7 @@ defmodule ApiWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_api_key",
-    signing_salt: "GFgbJv+p",
+    signing_salt: "ars5n5q1",
     same_site: "Lax"
   ]
 
@@ -27,6 +27,7 @@ defmodule ApiWeb.Endpoint do
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     plug Phoenix.CodeReloader
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :api
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

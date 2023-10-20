@@ -6,29 +6,20 @@ defmodule ApiWeb.Router do
   end
 
   pipeline :auth_token do
-    plug(ApiWeb.Plugs.GetAuthToken)
+    plug ApiWeb.Plugs.GetAuthToken
   end
 
-  # scope "/api", ApiWeb do
-  #   pipe_through :api
-  # end
-
-  scope "/calcular-intereses", ApiWeb do
+  scope "/api", ApiWeb do
     pipe_through :api
-    forward "/", Graphql,
-      schema: ApiWeb.Schema,
-      json_codec: Jason
   end
 
   scope "/", ApiWeb do
     pipe_through([:api, :auth_token])
 
+    post "/calcular-intereses", ProxyController, :calculate_compound_interest
     get "/jokes/:name", ProxyController, :get_joker_data  # falta la llave api token
   end
 
-  # match _ do
-  #   send_resp(conn, 404, "oops")
-  # end
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:api, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put

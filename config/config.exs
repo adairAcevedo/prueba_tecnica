@@ -17,6 +17,7 @@
 import Config
 
 config :api,
+  ecto_repos: [Api.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
@@ -28,7 +29,7 @@ config :api, ApiWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Api.PubSub,
-  live_view: [signing_salt: "15DjKe8m"]
+  live_view: [signing_salt: "GffA2XTD"]
 
 # Configures the mailer
 #

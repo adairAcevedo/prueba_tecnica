@@ -1,5 +1,15 @@
 import Config
 
+# Configure your database
+config :api, Api.Repo,
+  username: System.get_env("DATABASE_USER"),
+  password: System.get_env("DATABASE_PASSWORD"),
+  hostname: System.get_env("DATABASE_HOST"),
+  database: System.get_env("DATABASE_DB_NAME"),
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -13,7 +23,7 @@ config :api, ApiWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "q6W/iGtpKdWTuobrz0P/rax3IlYeEFaB9OHN1bgAW+UOMRB9lnQo8S7G0YBxM0lk",
+  secret_key_base: "gfEn+XwGqtfAekSE47zPttVqZwHCJ92oEyPAhnMKG3b05WHSojdAmfX6+gaZ39xj",
   watchers: []
 
 # ## SSL Support

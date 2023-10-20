@@ -1,4 +1,4 @@
-defmodule ApiWeb.ProxyCore do
+defmodule Api.ProxyCore do
   @base_url "https://api.chucknorris.io/jokes/"
   def get_joker_resp(name) when is_binary(name) do
     name
