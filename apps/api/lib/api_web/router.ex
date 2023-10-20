@@ -5,40 +5,30 @@ defmodule ApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # pipeline :graphql do
-  #   plug Plug.Parsers,
-  #     parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
-  #     pass: ["*/*"],
-  #     json_decoder: Jason
-  # end
-  #   plug Absinthe.Plug,
-  #     schema: ApiWeb.Schema
-  # end
-
-  scope "/api", ApiWeb do
-    pipe_through :api
-
+  pipeline :auth_token do
+    plug(ApiWeb.Plugs.GetAuthToken)
   end
 
-  # scope "/api-graphql2", ApiWeb do
-  #   pipe_through :graphql
+  # scope "/api", ApiWeb do
+  #   pipe_through :api
   # end
 
-  # plug Plug.Parsers,
-  #   parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
-  #   pass: ["*/*"],
-  #   json_decoder: Jason
-
-  scope "/api-graphql", ApiWeb do
+  scope "/calcular-intereses", ApiWeb do
     pipe_through :api
-
     forward "/", Graphql,
       schema: ApiWeb.Schema,
       json_codec: Jason
-      # to: ApiWeb.Graphql,
-      # init_opts: [schema: ApiWeb.Schema]
   end
 
+  scope "/", ApiWeb do
+    pipe_through([:api, :auth_token])
+
+    get "/jokes/:name", ProxyController, :get_joker_data  # falta la llave api token
+  end
+
+  # match _ do
+  #   send_resp(conn, 404, "oops")
+  # end
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:api, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put

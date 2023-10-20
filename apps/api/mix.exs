@@ -23,7 +23,7 @@ defmodule Api.MixProject do
   def application do
     [
       mod: {Api.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :httpoison]
     ]
   end
 
@@ -38,6 +38,7 @@ defmodule Api.MixProject do
     [
       {:phoenix, "~> 1.7.9"},
       {:phoenix_live_dashboard, "~> 0.8.2"},
+      {:phoenix_html, "~> 3.3"},
       {:swoosh, "~> 1.3"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 0.6"},
@@ -48,7 +49,9 @@ defmodule Api.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 2.1"},
       {:absinthe, "~> 1.7"},
-      {:absinthe_plug, "~> 1.5"}
+      {:absinthe_plug, "~> 1.5"},
+      {:plug_cowboy, "~> 2.6"},
+      {:plug, "~> 1.15"}
     ]
   end
 
