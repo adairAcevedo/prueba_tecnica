@@ -9,13 +9,12 @@ defmodule Api.ProxyCore do
   def get_joker_resp(_), do: %{error: "valor vacio"}
 
   def get_weather(city_name) do
-    poison_get("#{@weather_url}?q=#{city_name}&appid=#{System.get_env("WEATHER_API_TOKEN", "b5e4490caa2999591fda348c01569769")}&units=metric&lang=es")
+    poison_get("#{@weather_url}?q=#{city_name}&appid=#{System.get_env("WEATHER_API_TOKEN")}&units=metric&lang=es")
   end
 
   defp poison_get(url) do
     case HTTPoison.get url do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        IO.inspect body
         %{ok: body}
       {:ok, %HTTPoison.Response{status_code: 401, body: _body}} ->
         %{ok: %{error: "Api key invalida"} |> Jason.encode! }
