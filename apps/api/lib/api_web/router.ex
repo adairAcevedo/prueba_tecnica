@@ -10,9 +10,11 @@ defmodule ApiWeb.Router do
     plug ApiWeb.Plugs.GetAuthToken
   end
 
-  # scope "/api", ApiWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ApiWeb do
+    pipe_through :api
+    get "/api_tokens", ApiTokenController, :index
+    get "/api_tokens/new", ApiTokenController, :new
+  end
 
   scope "/", ApiWeb do
     pipe_through([:api, :auth_token])

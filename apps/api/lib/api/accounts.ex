@@ -58,6 +58,9 @@ defmodule Api.Accounts do
     |> Repo.insert()
   end
 
+  def create_new_api_token() do
+    create_api_token(%{token: Api.Apicore.generate_random_key, last_hour_count: 0})
+  end
   @doc """
   Updates a api_token.
 
