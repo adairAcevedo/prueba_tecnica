@@ -21,6 +21,7 @@ Api token limit 30 requests
 Api routes Examples
 
 Compound Interest
+```bash
 curl --request POST \
   --url http://localhost:4001/calcular-intereses \
   --header 'Content-Type: application/json' \
@@ -31,16 +32,20 @@ curl --request POST \
   "tasa_anual": 0.05,
   "periodos": 1
 }'
+```
 
 Jokes
+```bash
 curl --request GET \
   --url http://localhost:4001/jokes/random \
   --header 'User-Agent: insomnia/8.3.0' \
   --header 'x-api-token: kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy'
-
+```
 
 Weather
+```bash
 curl --request GET \
   --url http://localhost:4001/weather/cancun \
   --header 'User-Agent: insomnia/8.3.0' \
   --header 'x-api-token: kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy'
+```
