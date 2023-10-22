@@ -1,0 +1,9 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+      Lo siento, ocurrio un error.
+  </.error>
+      <.input field={f[:city]} type="text" label="Nombre de la ciudad o pais" autofocus/>
+  <:actions>
+      <.button>Enviar</.button>
+  </:actions>
+</.simple_form>

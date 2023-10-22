@@ -5,8 +5,9 @@ defmodule ApiWeb.Plugs.GetAuthToken do
     case get_token(conn) do
       {:ok, _current_token} ->
         conn
-      {:error, error} ->
+      {:error, error, status} ->
         conn
+        |> Plug.Conn.put_status(status)
         |> Phoenix.Controller.put_view(json: ApiWeb.ProxyView)
         |> Phoenix.Controller.render("error.json", error: %{error: error})
         |> Plug.Conn.halt()
@@ -18,7 +19,7 @@ defmodule ApiWeb.Plugs.GetAuthToken do
       |> Enum.filter(fn({name, _}) -> name == "x-api-token" end)
       |> List.first
       |>  case do
-            nil -> {:error, %{error: "El token no esta establecido en los headers"}}
+            nil -> {:error, "El token no esta establecido en los headers", :unauthorized}
             {_, token} -> valid_token(token)
           end
   end
@@ -36,8 +37,8 @@ defmodule ApiWeb.Plugs.GetAuthToken do
   def verify_limit_token(api_token) do
     Api.Accounts.last_hour_token_count(api_token)
     |> case do
-      nil -> {:error, %{error: "Ocurrio un error al validar tu token"}}
-      false -> {:error,  %{error: "Demasiadas solicitudes. Por favor, espere y vuelva a intentarlo más tarde."}}
+      nil -> {:error, "Ocurrio un error al validar tu token", :forbidden}
+      false -> {:error, "Demasiadas solicitudes. Por favor, espere y vuelva a intentarlo más tarde.",:too_many_requests }
       token_count -> {:ok, Api.Accounts.update_api_token_with_history_token(api_token, token_count)}
     end
   end

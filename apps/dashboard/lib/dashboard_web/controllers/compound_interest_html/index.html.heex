@@ -1,0 +1,21 @@
+<.header>
+  Calculo de interes compuesto
+  <:subtitle>Escribe los datos para calcular la el monto total del interes compuesto.</:subtitle>
+</.header>
+
+<%= if is_binary(@errors) and String.length(@errors) > 0 do %>
+  <.error >
+    <%= @errors %>
+  </.error>
+<% end %>
+<%= if Map.has_key?(@compound_interest, "amount_total") do %>
+  <.list >
+    <:item title="Monto total"><h3 style="font-size: 24px">$ <%= @compound_interest["amount_total"] %></h3></:item>
+    <:item title="Tasa anual"><%= get_percentaje(@compound_interest["request_detailed"]["tasa_anual"]) %></:item>
+    <:item title="Periodos"><%= @compound_interest["request_detailed"]["periodos"] %></:item>
+    <:item title="Monto Principal">$<%= @compound_interest["request_detailed"]["principal"] %></:item>
+  </.list>
+<% end %>
+
+
+<.compound_interest_form changeset={@changeset} action={~p"/calculate_compound_interests"} />

@@ -1,0 +1,26 @@
+<.header>
+  Datos randoms de Chuc norris 
+  <:subtitle>Escribe una ruta del api de chuck norris para obtener datos curiosos.</:subtitle>
+</.header>
+
+<%= if is_binary(@errors) and String.length(@errors) > 0 do %>
+<.error >
+  <%= @errors %>
+</.error>
+<% end %>
+<%= if is_struct(@chuck_norris_api) do %>
+  <.list >
+    <:item title="id"><%= @chuck_norris_api.external_id %></:item>
+    <:item title="Valor"><%= @chuck_norris_api.value %></:item>
+    <:item title="Fecha de creacion"><%= @chuck_norris_api.created_at %></:item>
+    <:item title="Fecha de actualizacion"><%= @chuck_norris_api.updated_at %></:item>
+    <:item title="Url"> <%= @chuck_norris_api.url %></:item>
+    <:item title="IconoUrl"> <%= @chuck_norris_api.icon_url %></:item>
+    <:item title="Icono">
+      <img src={"#{@chuck_norris_api.icon_url}"} width="36"/>
+    </:item>
+  </.list>
+<% end %>
+
+
+<.chuck_norris_api_form changeset={@changeset} action={~p"/chuck_norris_api"} />

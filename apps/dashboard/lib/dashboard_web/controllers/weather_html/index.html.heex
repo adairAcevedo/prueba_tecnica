@@ -1,0 +1,19 @@
+<.header>
+  Clima 
+  <:subtitle>Escribe el nombre de la ciuda, estado o pais para obtener las condiciones climaticas.</:subtitle>
+</.header>
+
+<%= if is_binary(@errors) and String.length(@errors) > 0 do %>
+<.error >
+  <%= @errors %>
+</.error>
+<% end %>
+<%= if is_struct(@weather) do %>
+  <.list >
+    <:item title="Ciudad"><%= @weather.city %></:item>
+    <:item title="Temperatura"><%= @weather.current_temp %> (°C)</:item>
+    <:item title="Condiciones climaticas"><%= @weather.conditions %></:item>
+  </.list>
+<% end %>
+
+<.weather_form changeset={@changeset} action={~p"/weathers"} />

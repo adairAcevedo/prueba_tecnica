@@ -1,0 +1,11 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Lo siento, sucedio un error.
+  </.error>
+  <.input field={f[:principal_amount]} type="number" label="Monto Principal" min="0"/>
+  <.input field={f[:anual_rate]} type="number" label="Tasa anual" step="0.01" min="0" />
+  <.input field={f[:periods]} type="number" label="Periodos (1 anual, 12 mensual)" min="1"/>
+  <:actions>
+    <.button>Calcular interes compuesto </.button>
+  </:actions>
+</.simple_form>

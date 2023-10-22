@@ -1,0 +1,9 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Lo siento, ocurrio un error.
+  </.error>
+  <.input field={f[:url]} type="text" label="Url, Ej: /jokes/random" alt="/jokes/random" />
+  <:actions>
+    <.button>Enviar</.button>
+  </:actions>
+</.simple_form>

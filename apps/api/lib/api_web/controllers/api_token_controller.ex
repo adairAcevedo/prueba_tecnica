@@ -2,7 +2,6 @@ defmodule ApiWeb.ApiTokenController do
   use ApiWeb, :controller
 
   alias Api.Accounts
-  # alias Api.Accounts.ApiToken
 
   def index(conn, _params) do
     api_tokens = Accounts.list_api_tokens()
