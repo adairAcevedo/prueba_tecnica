@@ -13,10 +13,13 @@
 2. Install all dependences to Elixi project with `mix deps.get`
 3. Go to apps/api un run command `mix setup` to create Db
 4. Run proyect with `mix phx.server`
+5. Dashboard run in `http://localhost:8080"`
 
 
 Apitoken default  "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy"
 Api token limit 40 requests per hour
+
+> Weather get from [openweathermap]("https://openweathermap.org/")
 
 Api routes Examples
 

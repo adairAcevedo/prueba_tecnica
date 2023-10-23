@@ -13,7 +13,7 @@ defmodule DashboardWeb.CompoundInterestController do
   end
 
   def post_calculate(conn, %{"compound_interest" => compound_interest_params}) do
-    headers = ["X-API-TOKEN": "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy", "Accept": "Application/json; Charset=utf-8", "Content-Type": "application/json"]
+    headers = ["X-API-TOKEN": "#{System.get_env("API_TOKEN", "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy")}", "Accept": "Application/json; Charset=utf-8", "Content-Type": "application/json"]
 
     changeset = Methods.change_compound_interest(%CompoundInterest{}, compound_interest_params)
     |> Ecto.Changeset.apply_changes

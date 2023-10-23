@@ -25,7 +25,7 @@ defmodule DashboardWeb.WeatherController do
 
   defp get_weather(conn, city_name) do
 
-    headers = ["X-API-TOKEN": "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy", "Accept": "Application/json; Charset=utf-8"]
+    headers = ["X-API-TOKEN": "#{System.get_env("API_TOKEN", "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy")}", "Accept": "Application/json; Charset=utf-8"]
     DahsboardWeb.HTTP.get("/weather/#{city_name}", headers)
     |> case do
       {:ok, response} ->

@@ -16,7 +16,7 @@ defmodule DashboardWeb.ChuckNorrisApiController do
 
   def post_api(conn, %{"chuck_norris_api" => %{"url" => url} = chuck_norris_api_params}) do
 
-    headers = ["X-API-TOKEN": "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy", "Accept": "Application/json; Charset=utf-8"]
+    headers = ["X-API-TOKEN": "#{System.get_env("API_TOKEN", "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy")}", "Accept": "Application/json; Charset=utf-8"]
     DahsboardWeb.HTTP.get("#{url}", headers)
     |> case do
       {:ok, response} ->
