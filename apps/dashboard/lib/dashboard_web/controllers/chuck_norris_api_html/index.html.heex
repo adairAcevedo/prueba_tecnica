@@ -8,19 +8,34 @@
   <%= @errors %>
 </.error>
 <% end %>
-<%= if is_struct(@chuck_norris_api) do %>
+<.chuck_norris_api_form changeset={@changeset} action={~p"/chuck_norris_api"} />
+
+<%= if is_list(@response_decode) do %>
+  <.table id="r" rows={@response_decode}>
+    <:col :let={r} label="Name"><%= r %></:col>
+  </.table>
+<% end %>
+
+<%= if is_map(@response_decode) and  Map.has_key?(@response_decode,"value") do %>
   <.list >
-    <:item title="id"><%= @chuck_norris_api.external_id %></:item>
-    <:item title="Valor"><%= @chuck_norris_api.value %></:item>
-    <:item title="Fecha de creacion"><%= @chuck_norris_api.created_at %></:item>
-    <:item title="Fecha de actualizacion"><%= @chuck_norris_api.updated_at %></:item>
-    <:item title="Url"> <%= @chuck_norris_api.url %></:item>
-    <:item title="IconoUrl"> <%= @chuck_norris_api.icon_url %></:item>
-    <:item title="Icono">
-      <img src={"#{@chuck_norris_api.icon_url}"} width="36"/>
-    </:item>
+    <:item title="id"><%= @response_decode["id"] %></:item>
+    <:item title="Valor"><%= @response_decode["value"] %></:item>
+    <:item title="Fecha de creacion"><%= @response_decode["created_at"] %></:item>
+    <:item title="Fecha de actualizacion"><%= @response_decode["updated_at"] %></:item>
+    <:item title="Url"> <%= @response_decode["url"] %></:item>
+    <:item title="IconoUrl"> <%= @response_decode["icon_url"] %></:item>
+    
   </.list>
 <% end %>
 
-
-<.chuck_norris_api_form changeset={@changeset} action={~p"/chuck_norris_api"} />
+<%= if is_map(@response_decode) and  Map.has_key?(@response_decode,"total") do %>
+  <span> Total: <%= Map.get(@response_decode, "total") %></span>
+  <.table id="r" rows={Map.get(@response_decode, "result")}>
+    <:col :let={r} label="id"><%= r["id"] %></:col>
+    <:col :let={r} label="categories"><%= r["categories"] %></:col>
+    <:col :let={r} label="icon_url"><%= r["icon_url"] %></:col>
+    <:col :let={r} label="created_at"><%= r["created_at"] %></:col>
+    <:col :let={r} label="updated_at"><%= r["updated_at"] %></:col>
+    <:col :let={r} label="url"><%= r["url"] %></:col>
+  </.table>
+<% end %>

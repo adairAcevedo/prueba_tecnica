@@ -2,9 +2,8 @@ defmodule ApiWeb.ProxyController do
   use ApiWeb, :controller
 
 
-  def get_joker_data(conn, %{"name" => name}) do
-
-    Api.ProxyCore.get_joker_resp(name)
+  def get_joker_data(conn, %{"name" => name} = params) do
+    Api.ProxyCore.get_joker_resp(name, Map.delete(params, "name"))
       |> case do
         %{ok: response } ->
           conn

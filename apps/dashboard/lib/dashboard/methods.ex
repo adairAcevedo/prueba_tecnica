@@ -3,7 +3,7 @@ defmodule Dashboard.Methods do
   The Methods context.
   """
   import Ecto.Query, warn: false
-  alias Dashboard.Repo
+  # alias Dashboard.Repo
 
   alias Dashboard.Methods.CompoundInterest
 
