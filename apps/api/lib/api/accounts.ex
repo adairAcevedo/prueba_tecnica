@@ -1,5 +1,5 @@
 defmodule Api.Accounts do
-  @limit_token_use_by_hour 30
+  @limit_token_use_by_hour 40
   @moduledoc """
   The Accounts context.
   """

@@ -8,7 +8,7 @@
 
 > If you use package manager like [asdf](https://asdf-vm.com/) you can use it.
 
-###Steps to config project enviroment
+### Steps to config project enviroment
 1. Set enviroment in `.env` file and run `source .env`
 2. Install all dependences to Elixi project with `mix deps.get`
 3. Go to apps/api un run command `mix setup` to create Db
@@ -16,7 +16,7 @@
 
 
 Apitoken default  "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy"
-Api token limit 30 requests
+Api token limit 40 requests per hour
 
 Api routes Examples
 
