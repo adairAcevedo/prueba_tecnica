@@ -14,6 +14,7 @@
 3. Go to apps/api un run command `mix setup` to create Db
 4. Run proyect with `mix phx.server`
 5. Dashboard run in `http://localhost:8080"`
+6. Api run in `http://localhost:4001"`
 
 
 Apitoken default  "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy"
