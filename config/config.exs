@@ -23,9 +23,9 @@
 # General application configuration
 import Config
 
-config :dashboard,
-  ecto_repos: [Dashboard.Repo],
-  generators: [timestamp_type: :utc_datetime]
+# config :dashboard,
+#   ecto_repos: [Dashboard.Repo],
+#   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
 config :dashboard, DashboardWeb.Endpoint,

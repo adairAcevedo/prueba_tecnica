@@ -9,12 +9,31 @@
 > If you use package manager like [asdf](https://asdf-vm.com/) you can use it.
 
 ### Steps to config project enviroment
-1. Set enviroment in `.env` file and run `source .env`
-2. Install all dependences to Elixi project with `mix deps.get`
-3. Go to apps/api un run command `mix setup` to create Db
-4. Run proyect with `mix phx.server`
-5. Dashboard run in `http://localhost:8080"`
-6. Api run in `http://localhost:4001"`
+1. Configured `.env_dist` to set variable you need or duplicated the file
+```bash
+cp .env_dist .env
+```
+After configured, source the file
+```bash
+source .env
+```
+
+2. Install dependences, created DB to Elixir project with 
+```bash
+mix setup
+```
+
+3. To create a default token in DB run command 
+```bash
+cd apps/api && mix ecto.api.seeds
+```
+
+4. Run proyect with
+```bash
+mix phx.server
+```
+
+5. Dashboard run in `http://localhost:8080"` and api run in `http://localhost:4001"`
 
 
 Apitoken default  "kFYqXqXC9YdzVMHyaEYP9SKSQx7PcPFy"

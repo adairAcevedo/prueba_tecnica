@@ -9,7 +9,6 @@ defmodule Dashboard.Application do
   def start(_type, _args) do
     children = [
       DashboardWeb.Telemetry,
-      Dashboard.Repo,
       {DNSCluster, query: Application.get_env(:dashboard, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Dashboard.PubSub},
       # Start the Finch HTTP client for sending emails

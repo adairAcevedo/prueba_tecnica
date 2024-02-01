@@ -12,7 +12,7 @@ defmodule Dashboard.MixProject do
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      aliases: aliases(),
+      # aliases: aliases(),
       deps: deps()
     ]
   end
@@ -37,8 +37,8 @@ defmodule Dashboard.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7.9"},
-      {:phoenix_ecto, "~> 4.4"},
-      {:ecto_sql, "~> 3.10"},
+      # {:phoenix_ecto, "~> 4.4"},
+      # {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},

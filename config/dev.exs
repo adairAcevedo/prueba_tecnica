@@ -1,14 +1,14 @@
 import Config
 
 # Configure your database
-config :dashboard, Dashboard.Repo,
-  username: System.get_env("DATABASE_USER"),
-  password: System.get_env("DATABASE_PASSWORD"),
-  hostname: System.get_env("DATABASE_HOST"),
-  database: System.get_env("DASHBOARD_DATABASE_DB_NAME"),
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+# config :dashboard, Dashboard.Repo,
+#   username: System.get_env("DATABASE_USER"),
+#   password: System.get_env("DATABASE_PASSWORD"),
+#   hostname: System.get_env("DATABASE_HOST"),
+#   database: System.get_env("DASHBOARD_DATABASE_DB_NAME"),
+#   stacktrace: true,
+#   show_sensitive_data_on_connection_error: true,
+#   pool_size: 10
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -83,10 +83,11 @@ config :swoosh, :api_client, false
 
 # Configure your database
 config :api, Api.Repo,
-  username: System.get_env("DATABASE_USER"),
-  password: System.get_env("DATABASE_PASSWORD"),
-  hostname: System.get_env("DATABASE_HOST"),
-  database: System.get_env("DATABASE_DB_NAME"),
+  # username: System.get_env("DATABASE_USER"),
+  # password: System.get_env("DATABASE_PASSWORD"),
+  # hostname: System.get_env("DATABASE_HOST"),
+  # database: System.get_env("DATABASE_DB_NAME"),
+  url: System.get_env("DATABASE_API_URL"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

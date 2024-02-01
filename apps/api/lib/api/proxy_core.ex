@@ -1,6 +1,7 @@
 defmodule Api.ProxyCore do
   @joker_url "https://api.chucknorris.io/jokes/"
   @weather_url "https://api.openweathermap.org/data/2.5/weather"
+  require Logger
 
   def get_joker_resp(name, query) when is_binary(name) and map_size(query) > 0 do
 
@@ -13,9 +14,11 @@ defmodule Api.ProxyCore do
 
   def get_joker_resp(_), do: %{error: "valor vacio"}
 
-  @spec get_weather(any()) :: %{optional(:error) => any(), optional(:ok) => any()}
+  @spec get_weather(String.t()) :: {:ok, map()} | {:error, String.t}
   def get_weather(city_name) do
-    poison_get("#{@weather_url}?q=#{city_name}&appid=#{System.get_env("WEATHER_API_TOKEN")}&units=metric&lang=es")
+    url = "#{@weather_url}?q=#{city_name}&appid=#{System.get_env("WEATHER_API_TOKEN")}&units=metric&lang=es"
+    Logger.info("[Api - get_weather] url : #{url}")
+    poison_get(url)
   end
 
   defp poison_get(url) do

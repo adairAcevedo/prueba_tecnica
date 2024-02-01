@@ -29,7 +29,7 @@ defmodule ApiWeb.Plugs.GetAuthToken do
       {:ok, api_token} ->
         verify_limit_token(api_token)
       _ ->
-        {:error, %{error: "Token invalido"}}
+        {:error, "Token invalido", :unauthorized}
     end
   end
 
